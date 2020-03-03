@@ -10,3 +10,29 @@ function formatParams(params){
     )
         return queryItems.join('&');
 }
+
+//api fetch
+function apiData(recipes) {
+    const paramsRecipes = {
+        api_key: apiKey,
+        from:
+        to: 
+        diet:
+        cuisineType:
+        mealType:
+        dishType:
+        time:
+        excluded:
+    }
+    
+    let queryString = formatParams(paramsRecipes);
+    //let
+
+    fetch()
+    .then(response => response.json())
+    .then(responseJson => displayApiData(responseJson))
+    .catch(error => {
+        $('.displayError').html(`There has been an error. Please try again:
+        ${error.message}`)
+    })
+}
