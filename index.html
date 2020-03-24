@@ -13,7 +13,9 @@ displayRecipeFinder<!DOCTYPE html>
         <input type="text" name="search-term" id="js-search-term" placeholder="chicken" required>
         <input type="text" name="search-term" id="js-search-term" placeholder="potatoes">
         <input type="text" name="search-term" id="js-search-term" placeholder="oregano">
-        <input type="submit" id="getDisplay" value="Get api data">
+        <label for="max-results">Maximum returned results</label>
+        <input type="number" name="max-results" id="js-max-results" value="5">
+        <input type="submit" id="getDisplay" value="Search">
     </form>
 
     <p id="js-error-message" class="error-message"></p>

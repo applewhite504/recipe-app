@@ -5,29 +5,30 @@ let appId = 'b8a5a5c3';
 let recipeFinder =  'https://api.edamam.com/search';
 
 
-function formatQueryParams(params) {
+function formatParams(params) {
     const queryItems = Object.keys(params)
-    .map(key => `${key}=${params[key]}`)
-//`${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
-     return queryItems.join('&');
+    .map(key => //`${key}=${params[key]}`)
+    `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
+        return queryItems.join('&');
 }
 
 
-function getRecipe(query, maxResults=10) {
+function getRecipe(query, maxResults) {
     const params = {
         q: query,
         app_id: appId,
         app_key: appKey,
+        limit: maxResults,
     };
 
-    let queryString = formatQueryParams(params)
+    let queryString = formatParams(params)
     let url = recipeFinder + '?' + queryString;
 
-    console.log(url);
+    //console.log(url);
 
     fetch(url)
     .then(response => response.json())
-    .then(responseJson => displayResults(responseJson))
+    .then(responseJson => displayGetRecipe(responseJson))
     .catch(error => {
         $('.displayError').html(`Something went wrong. Try again later:
         ${error.message}`)   
@@ -35,30 +36,33 @@ function getRecipe(query, maxResults=10) {
     //console.log(responseJson)
 }
 
-function displayResults(responseJson) {
+function displayGetRecipe(responseJson) {
     //console.log(responseJson);
     //$('#results-list').empty();
 
     for (let i = 0; i < responseJson.hits.length; i++){
-        //console.log(responseJson.hits[i]);
-        $('.displayRecipeFinder').append(`
-        <h2>${responseJson.hits[i].recipe}  ,name</h2>
-        <a href="#">${responseJson.hits[i].recipe.label}</
-            a></h3>
-            <p>${responseJson.recipes[i].description}</p>`
-        )};
-    $('#results').removeClass('hidden');
-};
+        console.log(responseJson.hits[i]);
+        $('.displayRecipe').append(`
+        <h2>${responseJson.hits[i].recipe}</h2>
+        <a href="#">${responseJson.hits[i].recipe.label}</a>
+        <p>${responseJson.recipes[i].description}</p>`
+        )}
+    }
+      //  $('#results').removeClass('hidden');
 
 
 
 function watchForm() {
     $('#getDisplay').submit(event => {
         event.preventDefault();
+        
+        let query = $('#js-search-term').val();
+        let maxResults = $('#js-max-results').val();
+
         $('.displayRecipeFinder').empty();
-        const searchTerm = $('#js-search-term').val();
-        const maxResults = $('#js-search-term').val();
-        getRecipe(searchTerm, maxResults);
+        $('.displayError').empty();
+
+        getRecipe(query, maxResults);
 });
 }
 
