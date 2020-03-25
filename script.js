@@ -56,9 +56,9 @@ function watchForm() {
     $('#getDisplay').submit(event => {
         event.preventDefault();
         $('.displayRecipeFinder').empty();
-        const searchTerm = $('#js-search-term').val();
-        const maxResults = $('#js-search-term').val();
-        getRecipe(searchTerm, maxResults);
+        const ingredient = $('#js-search-term').val();
+        const maxResults = $('#js-max-results').val();
+        getRecipe(ingredient, maxResults);
 });
 }
 
