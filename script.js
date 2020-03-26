@@ -35,7 +35,7 @@
         for (let i = 0; i < responseJson.hits.length; i++){
          console.log(responseJson.hits[i].recipe);
          $('.displayRecipeFinder').append(`
-            <h2>name: ${responseJson.hits[i].recipe.label}</h2>
+            <h2>${responseJson.hits[i].recipe.label}</h2>
             <img src="${responseJson.hits[i].recipe.image}" ><br>
             <a href="${responseJson.hits[i].recipe.url}">${responseJson.hits[i].recipe.source}</a>
         `
@@ -43,16 +43,19 @@
     }
 //     $('#results').removeClass('hidden');
  }
- 
+
     function watchForm() {
         $('#getDisplay').click(event => {
             event.preventDefault();
         
             let ingredient = $('#js-search-term').val();
+            let ingredientTwo = $('#js-search-term-two').val();
+            let ingredientThree = $('#js-search-term-three').val();
         // let maxResults = $('#js-max-results').val();
         //console.log(getRecipe(ingredient));
-             getRecipe(ingredient);
+             getRecipe(ingredient, ingredientTwo, ingredientThree);
              $('.displayRecipeFinder').empty();
+             
     });
 }
 $(watchForm);
